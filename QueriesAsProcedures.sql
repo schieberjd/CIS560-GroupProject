@@ -54,13 +54,14 @@ GO
 
 EXEC Hospital.GetDoctorTreatingConditionWithComTreatment 'Coronavirus';
 
---Query 7: conditions by name
+--Query 7: conditions by patient name
 DROP PROCEDURE IF EXISTS Hospital.GetConditionByPatientName;
 GO
 
 CREATE PROCEDURE Hospital.GetConditionByPatientName
         @FirstName NVARCHAR(64),
-        @LastName NVARCHAR(64)
+        @LastName NVARCHAR(64),
+        @Birthday DATETIME
 AS
 
 SELECT C.FirstName, C.LastName, P.PatientID, Con.CommonName AS ConditionName
@@ -72,18 +73,20 @@ INNER JOIN Hospital.Condition Con ON Con.ConditionID = PSC.ConditionID
 WHERE P.IsRemoved IS NOT NULL 
         AND C.FirstName = @FirstName
         AND C.LastName = @LastName
+        AND P.BirthDate = @Birthday
 ORDER BY Con.CommonName ASC;
 GO
 
 EXEC Hospital.GetConditionByPatientName 'Wylie', 'Ashley';
 
---Query 8: Treatments by name
+--Query 8: Treatments by patient name
 DROP PROCEDURE IF EXISTS Hospital.GetTreatmentByPatientName;
 GO
 
 CREATE PROCEDURE Hospital.GetTreatmentByPatientName
         @FirstName NVARCHAR(64),
-        @LastName NVARCHAR(64)
+        @LastName NVARCHAR(64),
+        @Birthday DATETIME
 AS
 
 SELECT C.FirstName, C.LastName, P.PatientID, T.Name AS TreatmentName
@@ -95,6 +98,7 @@ INNER JOIN Hospital.Treatment T ON T.TreatmentID = PST.TreatmentID
 WHERE P.IsRemoved IS NOT NULL 
         AND C.FirstName = @FirstName
         AND C.LastName = @LastName
+        AND P.BirthDate = @Birthday
 ORDER BY PS.AdmittanceDate;
 GO
 
@@ -106,7 +110,8 @@ GO
 
 CREATE PROCEDURE Hospital.GetPatientByDoctor
         @FirstName NVARCHAR(64),
-        @LastName NVARCHAR(64)
+        @LastName NVARCHAR(64),
+        @Unit NVARCHAR(64)
 AS
 
 SELECT CI.FirstName AS DoctorFirstName, CI.LastName AS DoctorLastName, 
@@ -121,6 +126,7 @@ INNER JOIN Hospital.ContactInfo CIp ON CIp.ContactInfoID = P.ContactInfoID
 WHERE P.IsRemoved IS NOT NULL
         AND CI.FirstName = @FirstName
         AND CI.LastName = @LastName
+        AND D.Unit = @Unit
 ORDER BY PS.AdmittanceDate ASC;
 GO
 
@@ -132,7 +138,8 @@ GO
 
 CREATE PROCEDURE Hospital.GetDoctorByPatient
         @FirstName NVARCHAR(64),
-        @LastName NVARCHAR(64)
+        @LastName NVARCHAR(64),
+        @Birthday DATETIME
 AS
 
 SELECT CIp.FirstName AS PatientFirstName,CIp.LastName AS PatientLastName,
@@ -146,6 +153,7 @@ INNER JOIN Hospital.ContactInfo CI ON D.ContactInfoID = CI.ContactInfoID
 WHERE P.IsRemoved IS NOT NULL
         AND CIp.FirstName = @FirstName
         AND CIp.LastName = @LastName
+        AND P.BirthDate = @Birthday
 ORDER BY CI.FirstName ASC, CI.LastName ASC;
 GO
 
