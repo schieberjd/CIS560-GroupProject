@@ -1,128 +1,132 @@
-CREATE OR ALTER PROCEDURE Hospital.GetPatient
+CREATE OR ALTER PROCEDURE Hospital.GetPatientInfo
    @FirstName NVARCHAR(64),
-   @LastName NVARCHAR(64)
+   @LastName NVARCHAR(64),
+   @BirthDate DATETIME
 AS
 
-SELECT  CI.FirstName, CI.LastName, CI.PhoneNumber, CI.Email, P.BirthDate, P.Sex
-FROM Hospital.Patient P
-    INNER JOIN Hospital.ContactInfo CI ON CI.ContactInfoID = P.ContactInfoID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CI.IsRemoved = 0 AND P.IsRemoved = 0
-ORDER BY CI.LastName, CI.FirstName;
-
-EXEC Hospital.GetPatient N'Cade', N'Barrett';
+SELECT CI.PhoneNumber, CI.Email, CI.AddressLine, P.Sex
+FROM Hospital.ContactInfo CI
+    INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+    AND CI.IsRemoved = 0 AND P.IsRemoved = 0;
 GO
 
 
 
 
-
-
-CREATE OR ALTER PROCEDURE Hospital.GetDoctor
+CREATE OR ALTER PROCEDURE Hospital.GetDoctorInfo
    @FirstName NVARCHAR(64),
-   @LastName NVARCHAR(64)
+   @LastName NVARCHAR(64),
+   @Unit NVARCHAR(64)
 AS
 
-SELECT CI.FirstName, CI.LastName, CI.PhoneNumber, CI.Email, D.PracticeStartDate, D.Degree, D.Unit
-FROM Hospital.Doctor D
-    INNER JOIN Hospital.ContactInfo CI ON CI.ContactInfoID = D.ContactInfoID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CI.IsRemoved = 0 AND D.IsRemoved = 0
-ORDER BY CI.LastName, CI.FirstName;
-
-EXEC Hospital.GetDoctor N'Lance', N'Mccarthy';
+SELECT CI.PhoneNumber, CI.Email, CI.AddressLine, D.PracticeStartDate, D.Degree
+FROM Hospital.ContactInfo CI
+    INNER JOIN Hospital.Doctor D ON D.ContactInfoID = CI.ContactInfoID
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND D.Unit = @Unit
+    AND CI.IsRemoved = 0 AND D.IsRemoved = 0;
 GO
 
+
+
+
+CREATE OR ALTER PROCEDURE Hospital.GetPatientEmergencyContactInfo
+   @FirstName NVARCHAR(64),
+   @LastName NVARCHAR(64),
+   @BirthDate DATETIME
+AS
+
+SELECT ECI.FirstName, ECI.LastName, ECI.PhoneNumber, ECI.Email, ECI.AddressLine
+FROM Hospital.ContactInfo CI
+    INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
+    INNER JOIN Hospital.ContactInfo ECI ON ECI.ContactInfoID = P.EmergencyContactInfoID
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+    AND CI.IsRemoved = 0 AND P.IsRemoved = 0 AND ECI.IsRemoved = 0;
+GO
 
 
 
 
 CREATE OR ALTER PROCEDURE Hospital.GetPatientStays
-   @PatientID INT
-AS
-
-SELECT P.PatientID, PS.AdmittanceDate, PS.DischargeDate, PS.RoomNumber, PS.Unit
-FROM Hospital.Patient P
-    INNER JOIN Hospital.PatientStay PS ON PS.PatientID = P.PatientID
-WHERE P.PatientID = @PatientID AND P.IsRemoved = 0 AND PS.IsRemoved = 0
-ORDER BY PS.AdmittanceDate DESC;
-
-EXEC Hospital.GetPatientStays 114;
-GO
-
-
-
-
-
-
-CREATE OR ALTER PROCEDURE Hospital.GetPatientConditions
    @FirstName NVARCHAR(64),
-   @LastName NVARCHAR(64)
+   @LastName NVARCHAR(64),
+   @BirthDate DATETIME
 AS
 
-SELECT CI.FirstName, CI.LastName, C.CommonName, C.TechnicalName
-FROM Hospital.Patient P
-    INNER JOIN Hospital.ContactInfo CI ON CI.ContactInfoID = P.ContactInfoID
+SELECT PS.AdmittanceDate, PS.DischargeDate, PS.Unit, PS.RoomNumber
+FROM Hospital.ContactInfo CI
+    INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
     INNER JOIN Hospital.PatientStay PS ON PS.PatientID = P.PatientID
-    INNER JOIN Hospital.PatientStayCondtion PSC ON PSC.PatientStayID = PS.PatientStayID
-    INNER JOIN Hospital.Condition C ON C.ConditionID = PSC.ConditionID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CI.IsRemoved = 0 AND P.IsRemoved = 0
-    AND PS.IsRemoved = 0 AND PSC.IsRemoved = 0 AND C.IsRemoved = 0
-ORDER BY CI.LastName, CI.FirstName, C.CommonName;
-
-EXEC Hospital.GetPatientConditions N'Garrison', N'Ramos';
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+    AND CI.IsRemoved = 0 AND P.IsRemoved = 0 AND PS.IsRemoved = 0
+ORDER BY PS.AdmittanceDate DESC;
 GO
-
-
 
 
 
 
 CREATE OR ALTER PROCEDURE Hospital.GetHospitalConditionHistory
-   @Name NVARCHAR(64)
+   @CommonName NVARCHAR(64)
 AS
 
-WITH GetDoctor(DoctorID, FirstName, LastName, Degree) AS
+WITH Doctors(DoctorID, FirstName, LastName, Degree) AS
 (
     SELECT D.DoctorID, CI.FirstName, CI.LastName, D.Degree
-    FROM Hospital.Doctor D
-        INNER JOIN Hospital.ContactInfo CI ON D.ContactInfoID = CI.ContactInfoID
-    WHERE D.IsRemoved = 0 AND CI.IsRemoved = 0
+    FROM Hospital.ContactInfo CI
+        INNER JOIN Hospital.Doctor D ON D.ContactInfoID = CI.ContactInfoID
+    WHERE CI.IsRemoved = 0 AND D.IsRemoved = 0
 )
-SELECT C.TechnicalName, PS.PatientID, PS.AdmittanceDate, PS.DischargeDate, D.FirstName, D.LastName, D.Degree
+SELECT PS.AdmittanceDate, PS.DischargeDate, PS.PatientID, D.FirstName, D.LastName, D.Degree,
+    COUNT(PS.PatientStayID) OVER(
+        PARTITION BY YEAR(PS.AdmittanceDate)
+        ORDER BY PS.AdmittanceDate DESC
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS YtdCases
 FROM Hospital.Condition C
     INNER JOIN Hospital.PatientStayCondtion PSC ON PSC.ConditionID = C.ConditionID
     INNER JOIN Hospital.PatientStay PS ON PS.PatientStayID = PSC.PatientStayID
     INNER JOIN Hospital.PatientStayDoctor PSD ON PSD.PatientStayID = PS.PatientStayID
-    INNER JOIN GetDoctor D ON D.DoctorID = PSD.DoctorID
-WHERE C.TechnicalName = @Name AND C.IsRemoved = 0 AND PSC.IsRemoved = 0 AND PS.IsRemoved = 0 AND PSD.IsRemoved = 0
-GROUP BY C.TechnicalName, PS.PatientID, PS.AdmittanceDate, PS.DischargeDate, D.FirstName, D.LastName, D.Degree
-ORDER BY C.TechnicalName, PS.PatientID, PS.AdmittanceDate, PS.DischargeDate, D.FirstName, D.LastName, D.Degree;
-
-EXEC Hospital.GetHospitalConditionHistory N'Atherosclerotic heart disease';
+    INNER JOIN Doctors D ON D.DoctorID = PSD.DoctorID
+WHERE C.CommonName = @CommonName AND C.IsRemoved = 0 AND PSC.IsRemoved = 0 AND PS.IsRemoved = 0 AND PSD.IsRemoved = 0
+GROUP BY PS.PatientStayID, PS.AdmittanceDate, PS.DischargeDate, PS.PatientID, D.FirstName, D.LastName, D.Degree
+ORDER BY PS.AdmittanceDate DESC;
 GO
-
-
 
 
 
 
 CREATE OR ALTER PROCEDURE Hospital.GetDoctorConditionHistory
    @FirstName NVARCHAR(64),
-   @LastName NVARCHAR(64)
+   @LastName NVARCHAR(64),
+   @Unit NVARCHAR(64)
 AS
 
-SELECT CI.FirstName, CI.LastName, C.TechnicalName, T.Name, DATEDIFF(day, PS.DischargeDate, PS.AdmittanceDate) AS LengthOfStay
-FROM Hospital.ContactInfo CI 
-    INNER JOIN Hospital.Doctor D ON D.ContactInfoID = CI.ContactInfoID
-    INNER JOIN Hospital.PatientStayDoctor PSD ON PSD.DoctorID = D.DoctorID
-    INNER JOIN Hospital.PatientStay PS ON PS.PatientStayID = PSD.PatientStayID
+WITH DoctorPatientStays(PatientStayID) AS
+(
+    SELECT PSD.PatientStayID
+    FROM Hospital.ContactInfo CI
+        INNER JOIN Hospital.Doctor D ON D.ContactInfoID = CI.ContactInfoID
+        INNER JOIN Hospital.PatientStayDoctor PSD ON PSD.DoctorID = D.DoctorID
+    WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND D.Unit = @Unit
+        AND CI.IsRemoved = 0 AND D.IsRemoved = 0 AND PSD.IsRemoved = 0
+)
+SELECT C.CommonName, T.Name AS TreatmentName, DATEDIFF(day, PS.DischargeDate, PS.AdmittanceDate) AS LengthOfStay
+FROM DoctorPatientStays DPS
+    INNER JOIN Hospital.PatientStay PS ON PS.PatientStayID = DPS.PatientStayID
     INNER JOIN Hospital.PatientStayCondtion PSC ON PSC.PatientStayID = PS.PatientStayID
     INNER JOIN Hospital.Condition C ON C.ConditionID = PSC.ConditionID
     INNER JOIN Hospital.PatientStayTreatment PST ON PST.PatientStayID = PS.PatientStayID
     INNER JOIN Hospital.Treatment T ON T.TreatmentID = PST.TreatmentID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CI.IsRemoved = 0 AND D.IsRemoved = 0 AND PSD.IsRemoved = 0
-    AND PS.IsRemoved = 0 AND PSC.IsRemoved = 0 AND C.IsRemoved = 0 AND PST.IsRemoved = 0 AND T.IsRemoved = 0
-GROUP BY CI.FirstName, CI.LastName, C.TechnicalName, T.Name, DATEDIFF(day, PS.DischargeDate, PS.AdmittanceDate)
-ORDER BY CI.FirstName, CI.LastName, C.TechnicalName, T.Name, LengthOfStay;
-
-EXEC Hospital.GetDoctorConditionHistory N'Lance', N'Mccarthy';
+WHERE PS.IsRemoved = 0 AND PSC.IsRemoved = 0 AND C.IsRemoved = 0 AND PST.IsRemoved = 0 AND T.IsRemoved = 0
+GROUP BY PS.PatientStayID, C.CommonName, T.Name, PS.DischargeDate, PS.AdmittanceDate
+ORDER BY C.CommonName, T.Name;
 GO
+
+
+
+
+EXEC Hospital.GetPatientInfo N'Cade', N'Barrett', '2009-05-21'
+EXEC Hospital.GetDoctorInfo N'Lance', N'Mccarthy', N'Emergency'
+EXEC Hospital.GetPatientEmergencyContactInfo N'Cade', N'Barrett', '2009-05-21'
+EXEC Hospital.GetPatientStays N'Harrison', N'Stephens', '1998-09-12'
+EXEC Hospital.GetHospitalConditionHistory N'Coronary Artery Disease'
+EXEC Hospital.GetDoctorConditionHistory N'Kylie', N'Ramos', N'Family Practice'
