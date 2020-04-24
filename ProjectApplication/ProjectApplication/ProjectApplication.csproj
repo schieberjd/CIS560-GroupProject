@@ -46,6 +46,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddConditionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddConditionForm.Designer.cs">
+      <DependentUpon>AddConditionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddContactForm.Designer.cs">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDoctorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDoctorForm.Designer.cs">
+      <DependentUpon>AddDoctorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPatientForm.Designer.cs">
+      <DependentUpon>AddPatientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPatientStayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPatientStayForm.Designer.cs">
+      <DependentUpon>AddPatientStayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddTreatementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTreatementForm.Designer.cs">
+      <DependentUpon>AddTreatementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddUpdatePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +102,27 @@
     <Compile Include="SearchPage.Designer.cs">
       <DependentUpon>SearchPage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddConditionForm.resx">
+      <DependentUpon>AddConditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddContactForm.resx">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDoctorForm.resx">
+      <DependentUpon>AddDoctorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPatientForm.resx">
+      <DependentUpon>AddPatientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPatientStayForm.resx">
+      <DependentUpon>AddPatientStayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddTreatementForm.resx">
+      <DependentUpon>AddTreatementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddUpdatePage.resx">
+      <DependentUpon>AddUpdatePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LandingPage.resx">
       <DependentUpon>LandingPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,4 +152,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -16,5 +16,41 @@ namespace ProjectApplication
         {
             InitializeComponent();
         }
+
+        private void uxAddPatientButton_Click(object sender, EventArgs e)
+        {
+            AddPatientForm addPatient = new AddPatientForm();
+            addPatient.Show();
+        }
+
+        private void uxAddDoctorButton_Click(object sender, EventArgs e)
+        {
+            AddDoctorForm addDoctor = new AddDoctorForm();
+            addDoctor.Show();
+        }
+
+        private void uxAddPatientStay_Click(object sender, EventArgs e)
+        {
+            AddPatientStayForm addPatientStay = new AddPatientStayForm();
+            addPatientStay.Show();
+        }
+
+        private void uxAddContactButton_Click(object sender, EventArgs e)
+        {
+            AddContactForm addContact = new AddContactForm();
+            addContact.Show();
+        }
+
+        private void uxAddConditionButton_Click(object sender, EventArgs e)
+        {
+            AddConditionForm addCondition = new AddConditionForm();
+            addCondition.Show();
+        }
+
+        private void uxAddTreatmentButton_Click(object sender, EventArgs e)
+        {
+            AddTreatementForm addTreatment = new AddTreatementForm();
+            addTreatment.Show();
+        }
     }
 }
