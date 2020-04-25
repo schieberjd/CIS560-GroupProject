@@ -151,6 +151,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sql\Adding_Updating_Procedures.sql" />
+    <Content Include="Sql\Create Tables.sql" />
+    <Content Include="Sql\Insert Data.sql" />
+    <Content Include="Sql\Queries.sql" />
+    <Content Include="Sql\QueriesAsProcedures.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
