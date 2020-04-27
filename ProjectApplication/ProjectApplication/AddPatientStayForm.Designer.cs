@@ -40,12 +40,12 @@
             this.uxAddPatientStayToDatabaseButton = new System.Windows.Forms.Button();
             this.uxPatientIDBox = new System.Windows.Forms.TextBox();
             this.uxDoctorIDBox = new System.Windows.Forms.TextBox();
-            this.uxAdmittanceBox = new System.Windows.Forms.TextBox();
-            this.uxDischargeBox = new System.Windows.Forms.TextBox();
             this.uxRoomNumberBox = new System.Windows.Forms.TextBox();
             this.uxUnitBox = new System.Windows.Forms.TextBox();
             this.uxConditionBox = new System.Windows.Forms.TextBox();
             this.uxTreatmentBox = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +62,7 @@
             // 
             this.uxPatientIDLabel.AutoSize = true;
             this.uxPatientIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxPatientIDLabel.Location = new System.Drawing.Point(13, 68);
+            this.uxPatientIDLabel.Location = new System.Drawing.Point(18, 71);
             this.uxPatientIDLabel.Name = "uxPatientIDLabel";
             this.uxPatientIDLabel.Size = new System.Drawing.Size(88, 20);
             this.uxPatientIDLabel.TabIndex = 1;
@@ -72,7 +72,7 @@
             // 
             this.uxAdmittanceLabel.AutoSize = true;
             this.uxAdmittanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxAdmittanceLabel.Location = new System.Drawing.Point(12, 119);
+            this.uxAdmittanceLabel.Location = new System.Drawing.Point(267, 71);
             this.uxAdmittanceLabel.Name = "uxAdmittanceLabel";
             this.uxAdmittanceLabel.Size = new System.Drawing.Size(257, 20);
             this.uxAdmittanceLabel.TabIndex = 2;
@@ -82,7 +82,7 @@
             // 
             this.uxDischargeLabel.AutoSize = true;
             this.uxDischargeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxDischargeLabel.Location = new System.Drawing.Point(396, 119);
+            this.uxDischargeLabel.Location = new System.Drawing.Point(267, 123);
             this.uxDischargeLabel.Name = "uxDischargeLabel";
             this.uxDischargeLabel.Size = new System.Drawing.Size(260, 20);
             this.uxDischargeLabel.TabIndex = 3;
@@ -112,11 +112,12 @@
             // 
             this.uxConditionLabel.AutoSize = true;
             this.uxConditionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxConditionLabel.Location = new System.Drawing.Point(15, 242);
+            this.uxConditionLabel.Location = new System.Drawing.Point(12, 242);
             this.uxConditionLabel.Name = "uxConditionLabel";
-            this.uxConditionLabel.Size = new System.Drawing.Size(84, 20);
+            this.uxConditionLabel.Size = new System.Drawing.Size(106, 20);
             this.uxConditionLabel.TabIndex = 6;
-            this.uxConditionLabel.Text = "Condition:";
+            this.uxConditionLabel.Text = "Condition ID:";
+            this.uxConditionLabel.Click += new System.EventHandler(this.uxConditionLabel_Click);
             // 
             // uxTreatmentLabel
             // 
@@ -124,15 +125,15 @@
             this.uxTreatmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uxTreatmentLabel.Location = new System.Drawing.Point(396, 242);
             this.uxTreatmentLabel.Name = "uxTreatmentLabel";
-            this.uxTreatmentLabel.Size = new System.Drawing.Size(90, 20);
+            this.uxTreatmentLabel.Size = new System.Drawing.Size(112, 20);
             this.uxTreatmentLabel.TabIndex = 7;
-            this.uxTreatmentLabel.Text = "Treatment:";
+            this.uxTreatmentLabel.Text = "Treatment ID:";
             // 
             // uxDoctorIdLabel
             // 
             this.uxDoctorIdLabel.AutoSize = true;
             this.uxDoctorIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxDoctorIdLabel.Location = new System.Drawing.Point(226, 70);
+            this.uxDoctorIdLabel.Location = new System.Drawing.Point(12, 121);
             this.uxDoctorIdLabel.Name = "uxDoctorIdLabel";
             this.uxDoctorIdLabel.Size = new System.Drawing.Size(164, 20);
             this.uxDoctorIdLabel.TabIndex = 8;
@@ -147,10 +148,11 @@
             this.uxAddPatientStayToDatabaseButton.TabIndex = 9;
             this.uxAddPatientStayToDatabaseButton.Text = "Add Patient Stay to Database";
             this.uxAddPatientStayToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddPatientStayToDatabaseButton.Click += new System.EventHandler(this.uxAddPatientStayToDatabaseButton_Click);
             // 
             // uxPatientIDBox
             // 
-            this.uxPatientIDBox.Location = new System.Drawing.Point(108, 68);
+            this.uxPatientIDBox.Location = new System.Drawing.Point(112, 71);
             this.uxPatientIDBox.MaxLength = 10;
             this.uxPatientIDBox.Name = "uxPatientIDBox";
             this.uxPatientIDBox.Size = new System.Drawing.Size(79, 22);
@@ -158,27 +160,11 @@
             // 
             // uxDoctorIDBox
             // 
-            this.uxDoctorIDBox.Location = new System.Drawing.Point(396, 70);
+            this.uxDoctorIDBox.Location = new System.Drawing.Point(182, 119);
             this.uxDoctorIDBox.MaxLength = 10;
             this.uxDoctorIDBox.Name = "uxDoctorIDBox";
             this.uxDoctorIDBox.Size = new System.Drawing.Size(72, 22);
             this.uxDoctorIDBox.TabIndex = 11;
-            // 
-            // uxAdmittanceBox
-            // 
-            this.uxAdmittanceBox.Location = new System.Drawing.Point(276, 116);
-            this.uxAdmittanceBox.MaxLength = 10;
-            this.uxAdmittanceBox.Name = "uxAdmittanceBox";
-            this.uxAdmittanceBox.Size = new System.Drawing.Size(114, 22);
-            this.uxAdmittanceBox.TabIndex = 12;
-            // 
-            // uxDischargeBox
-            // 
-            this.uxDischargeBox.Location = new System.Drawing.Point(663, 119);
-            this.uxDischargeBox.MaxLength = 10;
-            this.uxDischargeBox.Name = "uxDischargeBox";
-            this.uxDischargeBox.Size = new System.Drawing.Size(125, 22);
-            this.uxDischargeBox.TabIndex = 13;
             // 
             // uxRoomNumberBox
             // 
@@ -198,31 +184,45 @@
             // 
             // uxConditionBox
             // 
-            this.uxConditionBox.Location = new System.Drawing.Point(106, 242);
+            this.uxConditionBox.Location = new System.Drawing.Point(124, 242);
             this.uxConditionBox.MaxLength = 64;
             this.uxConditionBox.Name = "uxConditionBox";
-            this.uxConditionBox.Size = new System.Drawing.Size(284, 22);
+            this.uxConditionBox.Size = new System.Drawing.Size(266, 22);
             this.uxConditionBox.TabIndex = 16;
             // 
             // uxTreatmentBox
             // 
-            this.uxTreatmentBox.Location = new System.Drawing.Point(493, 241);
+            this.uxTreatmentBox.Location = new System.Drawing.Point(514, 241);
             this.uxTreatmentBox.MaxLength = 64;
             this.uxTreatmentBox.Name = "uxTreatmentBox";
-            this.uxTreatmentBox.Size = new System.Drawing.Size(295, 22);
+            this.uxTreatmentBox.Size = new System.Drawing.Size(274, 22);
             this.uxTreatmentBox.TabIndex = 17;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(533, 69);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(255, 22);
+            this.dateTimePicker1.TabIndex = 18;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(533, 121);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(254, 22);
+            this.dateTimePicker2.TabIndex = 19;
             // 
             // AddPatientStayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 363);
+            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.uxTreatmentBox);
             this.Controls.Add(this.uxConditionBox);
             this.Controls.Add(this.uxUnitBox);
             this.Controls.Add(this.uxRoomNumberBox);
-            this.Controls.Add(this.uxDischargeBox);
-            this.Controls.Add(this.uxAdmittanceBox);
             this.Controls.Add(this.uxDoctorIDBox);
             this.Controls.Add(this.uxPatientIDBox);
             this.Controls.Add(this.uxAddPatientStayToDatabaseButton);
@@ -256,11 +256,11 @@
         private System.Windows.Forms.Button uxAddPatientStayToDatabaseButton;
         private System.Windows.Forms.TextBox uxPatientIDBox;
         private System.Windows.Forms.TextBox uxDoctorIDBox;
-        private System.Windows.Forms.TextBox uxAdmittanceBox;
-        private System.Windows.Forms.TextBox uxDischargeBox;
         private System.Windows.Forms.TextBox uxRoomNumberBox;
         private System.Windows.Forms.TextBox uxUnitBox;
         private System.Windows.Forms.TextBox uxConditionBox;
         private System.Windows.Forms.TextBox uxTreatmentBox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
     }
 }

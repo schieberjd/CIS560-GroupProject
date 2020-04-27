@@ -52,8 +52,8 @@
             this.uxZipBox = new System.Windows.Forms.TextBox();
             this.uxCountryBox = new System.Windows.Forms.TextBox();
             this.uxDegreeBox = new System.Windows.Forms.TextBox();
-            this.uxPracticeStartBox = new System.Windows.Forms.TextBox();
             this.uxUnitBox = new System.Windows.Forms.TextBox();
+            this.uxStartDatePicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -160,7 +160,7 @@
             // 
             this.uxPracticeStartDateLabel.AutoSize = true;
             this.uxPracticeStartDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxPracticeStartDateLabel.Location = new System.Drawing.Point(324, 308);
+            this.uxPracticeStartDateLabel.Location = new System.Drawing.Point(239, 308);
             this.uxPracticeStartDateLabel.Name = "uxPracticeStartDateLabel";
             this.uxPracticeStartDateLabel.Size = new System.Drawing.Size(281, 20);
             this.uxPracticeStartDateLabel.TabIndex = 11;
@@ -185,6 +185,7 @@
             this.uxAddDoctorToDatabaseButton.TabIndex = 13;
             this.uxAddDoctorToDatabaseButton.Text = "Add Doctor To Database";
             this.uxAddDoctorToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddDoctorToDatabaseButton.Click += new System.EventHandler(this.uxAddDoctorToDatabaseButton_Click);
             // 
             // uxPhoneLabel
             // 
@@ -273,16 +274,8 @@
             this.uxDegreeBox.Location = new System.Drawing.Point(87, 306);
             this.uxDegreeBox.MaxLength = 64;
             this.uxDegreeBox.Name = "uxDegreeBox";
-            this.uxDegreeBox.Size = new System.Drawing.Size(231, 22);
+            this.uxDegreeBox.Size = new System.Drawing.Size(146, 22);
             this.uxDegreeBox.TabIndex = 24;
-            // 
-            // uxPracticeStartBox
-            // 
-            this.uxPracticeStartBox.Location = new System.Drawing.Point(633, 308);
-            this.uxPracticeStartBox.MaxLength = 10;
-            this.uxPracticeStartBox.Name = "uxPracticeStartBox";
-            this.uxPracticeStartBox.Size = new System.Drawing.Size(155, 22);
-            this.uxPracticeStartBox.TabIndex = 25;
             // 
             // uxUnitBox
             // 
@@ -292,13 +285,20 @@
             this.uxUnitBox.Size = new System.Drawing.Size(334, 22);
             this.uxUnitBox.TabIndex = 26;
             // 
+            // uxStartDatePicker
+            // 
+            this.uxStartDatePicker.Location = new System.Drawing.Point(526, 308);
+            this.uxStartDatePicker.Name = "uxStartDatePicker";
+            this.uxStartDatePicker.Size = new System.Drawing.Size(262, 22);
+            this.uxStartDatePicker.TabIndex = 27;
+            // 
             // AddDoctorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.uxStartDatePicker);
             this.Controls.Add(this.uxUnitBox);
-            this.Controls.Add(this.uxPracticeStartBox);
             this.Controls.Add(this.uxDegreeBox);
             this.Controls.Add(this.uxCountryBox);
             this.Controls.Add(this.uxZipBox);
@@ -356,7 +356,7 @@
         private System.Windows.Forms.TextBox uxZipBox;
         private System.Windows.Forms.TextBox uxCountryBox;
         private System.Windows.Forms.TextBox uxDegreeBox;
-        private System.Windows.Forms.TextBox uxPracticeStartBox;
         private System.Windows.Forms.TextBox uxUnitBox;
+        private System.Windows.Forms.DateTimePicker uxStartDatePicker;
     }
 }

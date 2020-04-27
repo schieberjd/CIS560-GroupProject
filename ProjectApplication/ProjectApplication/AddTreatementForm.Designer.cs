@@ -87,11 +87,12 @@
             this.uxAddTreatmentToDatabaseButton.TabIndex = 4;
             this.uxAddTreatmentToDatabaseButton.Text = "Add Treatment to Database";
             this.uxAddTreatmentToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddTreatmentToDatabaseButton.Click += new System.EventHandler(this.uxAddTreatmentToDatabaseButton_Click);
             // 
             // uxNameBox
             // 
             this.uxNameBox.Location = new System.Drawing.Point(77, 65);
-            this.uxNameBox.MaxLength = 6;
+            this.uxNameBox.MaxLength = 64;
             this.uxNameBox.Name = "uxNameBox";
             this.uxNameBox.Size = new System.Drawing.Size(336, 22);
             this.uxNameBox.TabIndex = 5;

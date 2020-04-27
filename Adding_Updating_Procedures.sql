@@ -275,6 +275,14 @@ INSERT (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, IsRemoved)
 VALUES(S.PatientID, S.AdmittanceDate, S.DischargeDate, S.Unit, S.RoomNumber, 0);
 
 --now update patient stay condition
+--put all data into a CTE
+    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
+                            DoctorID, TreatentID)
+    AS
+    (
+        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
+    )--end CTE
+
 MERGE Hospital.PatientStayCondition T 
 USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
                             AND S.ConditionID = T.ConditionID
@@ -287,6 +295,14 @@ INSERT(PatientStayID, ConditionID, IsRemoved)
 VALUES(S.PatientStayID, S.ConditionID, 0);
 
 --now update patient stay treatment
+
+--put all data into a CTE
+    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
+                            DoctorID, TreatentID)
+    AS
+    (
+        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
+    )--end CTE
 MERGE Hospital.PatientStayTreatment T 
 USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
                             AND S.TreatmentID = T.TreatmentID
@@ -299,6 +315,14 @@ INSERT(PatientStayID, TreatmentID, IsRemoved)
 VALUES(S.PatientStayID, S.TreatmentID, 0);
 
 --now update patient stay doctor
+
+--put all data into a CTE
+    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
+                            DoctorID, TreatentID)
+    AS
+    (
+        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
+    )--end CTE
 MERGE Hospital.PatientStayDoctor T 
 USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
                             AND S.DoctorID = T.DoctorID

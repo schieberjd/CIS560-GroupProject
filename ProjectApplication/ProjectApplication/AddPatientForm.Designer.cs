@@ -51,9 +51,9 @@
             this.uxStateBox = new System.Windows.Forms.TextBox();
             this.uxZipBox = new System.Windows.Forms.TextBox();
             this.uxCountryBox = new System.Windows.Forms.TextBox();
-            this.uxBirthdayBox = new System.Windows.Forms.TextBox();
-            this.uxSexBox = new System.Windows.Forms.TextBox();
             this.uxEmergencyIDBox = new System.Windows.Forms.TextBox();
+            this.uxBirthdatePicker = new System.Windows.Forms.DateTimePicker();
+            this.uxAddSexBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -160,7 +160,7 @@
             // 
             this.uxSexLabel.AutoSize = true;
             this.uxSexLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxSexLabel.Location = new System.Drawing.Point(449, 335);
+            this.uxSexLabel.Location = new System.Drawing.Point(501, 337);
             this.uxSexLabel.Name = "uxSexLabel";
             this.uxSexLabel.Size = new System.Drawing.Size(232, 20);
             this.uxSexLabel.TabIndex = 11;
@@ -185,6 +185,7 @@
             this.uxAddPatientToDatabaseButton.TabIndex = 13;
             this.uxAddPatientToDatabaseButton.Text = "Add Patient to Database";
             this.uxAddPatientToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddPatientToDatabaseButton.Click += new System.EventHandler(this.uxAddPatientToDatabaseButton_Click);
             // 
             // uxCityLabel
             // 
@@ -209,7 +210,7 @@
             this.uxLastBox.Location = new System.Drawing.Point(484, 57);
             this.uxLastBox.MaxLength = 64;
             this.uxLastBox.Name = "uxLastBox";
-            this.uxLastBox.Size = new System.Drawing.Size(304, 22);
+            this.uxLastBox.Size = new System.Drawing.Size(334, 22);
             this.uxLastBox.TabIndex = 16;
             // 
             // uxPhoneBox
@@ -225,7 +226,7 @@
             this.uxEmailBox.Location = new System.Drawing.Point(511, 116);
             this.uxEmailBox.MaxLength = 64;
             this.uxEmailBox.Name = "uxEmailBox";
-            this.uxEmailBox.Size = new System.Drawing.Size(277, 22);
+            this.uxEmailBox.Size = new System.Drawing.Size(307, 22);
             this.uxEmailBox.TabIndex = 18;
             // 
             // uxAddressBox
@@ -233,7 +234,7 @@
             this.uxAddressBox.Location = new System.Drawing.Point(99, 180);
             this.uxAddressBox.MaxLength = 64;
             this.uxAddressBox.Name = "uxAddressBox";
-            this.uxAddressBox.Size = new System.Drawing.Size(689, 22);
+            this.uxAddressBox.Size = new System.Drawing.Size(719, 22);
             this.uxAddressBox.TabIndex = 19;
             // 
             // uxCityBox
@@ -257,31 +258,15 @@
             this.uxZipBox.Location = new System.Drawing.Point(531, 231);
             this.uxZipBox.MaxLength = 64;
             this.uxZipBox.Name = "uxZipBox";
-            this.uxZipBox.Size = new System.Drawing.Size(257, 22);
+            this.uxZipBox.Size = new System.Drawing.Size(287, 22);
             this.uxZipBox.TabIndex = 22;
             // 
             // uxCountryBox
             // 
             this.uxCountryBox.Location = new System.Drawing.Point(98, 287);
             this.uxCountryBox.Name = "uxCountryBox";
-            this.uxCountryBox.Size = new System.Drawing.Size(690, 22);
+            this.uxCountryBox.Size = new System.Drawing.Size(720, 22);
             this.uxCountryBox.TabIndex = 23;
-            // 
-            // uxBirthdayBox
-            // 
-            this.uxBirthdayBox.Location = new System.Drawing.Point(231, 335);
-            this.uxBirthdayBox.MaxLength = 10;
-            this.uxBirthdayBox.Name = "uxBirthdayBox";
-            this.uxBirthdayBox.Size = new System.Drawing.Size(212, 22);
-            this.uxBirthdayBox.TabIndex = 24;
-            // 
-            // uxSexBox
-            // 
-            this.uxSexBox.Location = new System.Drawing.Point(688, 334);
-            this.uxSexBox.MaxLength = 1;
-            this.uxSexBox.Name = "uxSexBox";
-            this.uxSexBox.Size = new System.Drawing.Size(100, 22);
-            this.uxSexBox.TabIndex = 25;
             // 
             // uxEmergencyIDBox
             // 
@@ -291,14 +276,28 @@
             this.uxEmergencyIDBox.Size = new System.Drawing.Size(234, 22);
             this.uxEmergencyIDBox.TabIndex = 26;
             // 
+            // uxBirthdatePicker
+            // 
+            this.uxBirthdatePicker.Location = new System.Drawing.Point(231, 335);
+            this.uxBirthdatePicker.Name = "uxBirthdatePicker";
+            this.uxBirthdatePicker.Size = new System.Drawing.Size(264, 22);
+            this.uxBirthdatePicker.TabIndex = 27;
+            // 
+            // uxAddSexBox
+            // 
+            this.uxAddSexBox.Location = new System.Drawing.Point(740, 335);
+            this.uxAddSexBox.Name = "uxAddSexBox";
+            this.uxAddSexBox.Size = new System.Drawing.Size(78, 22);
+            this.uxAddSexBox.TabIndex = 28;
+            // 
             // AddPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(830, 452);
+            this.Controls.Add(this.uxAddSexBox);
+            this.Controls.Add(this.uxBirthdatePicker);
             this.Controls.Add(this.uxEmergencyIDBox);
-            this.Controls.Add(this.uxSexBox);
-            this.Controls.Add(this.uxBirthdayBox);
             this.Controls.Add(this.uxCountryBox);
             this.Controls.Add(this.uxZipBox);
             this.Controls.Add(this.uxStateBox);
@@ -354,8 +353,8 @@
         private System.Windows.Forms.TextBox uxStateBox;
         private System.Windows.Forms.TextBox uxZipBox;
         private System.Windows.Forms.TextBox uxCountryBox;
-        private System.Windows.Forms.TextBox uxBirthdayBox;
-        private System.Windows.Forms.TextBox uxSexBox;
         private System.Windows.Forms.TextBox uxEmergencyIDBox;
+        private System.Windows.Forms.DateTimePicker uxBirthdatePicker;
+        private System.Windows.Forms.TextBox uxAddSexBox;
     }
 }

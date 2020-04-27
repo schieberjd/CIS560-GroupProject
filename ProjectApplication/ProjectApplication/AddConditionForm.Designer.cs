@@ -91,6 +91,7 @@
             this.uxAddConditionToDatabaseButton.TabIndex = 5;
             this.uxAddConditionToDatabaseButton.Text = "Add Condition to Database";
             this.uxAddConditionToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddConditionToDatabaseButton.Click += new System.EventHandler(this.uxAddConditionToDatabaseButton_Click);
             // 
             // AddConditionForm
             // 

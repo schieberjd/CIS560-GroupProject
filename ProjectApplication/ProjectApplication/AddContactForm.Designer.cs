@@ -159,6 +159,7 @@
             this.uxAddContactToDatabaseButton.TabIndex = 10;
             this.uxAddContactToDatabaseButton.Text = "Add Contact to Database";
             this.uxAddContactToDatabaseButton.UseVisualStyleBackColor = true;
+            this.uxAddContactToDatabaseButton.Click += new System.EventHandler(this.uxAddContactToDatabaseButton_Click);
             // 
             // uxFirstBox
             // 
