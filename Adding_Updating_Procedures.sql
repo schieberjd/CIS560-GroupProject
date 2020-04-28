@@ -5,6 +5,9 @@ DROP PROCEDURE IF EXISTS Hospital.AddContact;
 DROP PROCEDURE IF EXISTS Hospital.AddCondition;
 DROP PROCEDURE IF EXISTS Hospital.AddTreatment;
 DROP PROCEDURE IF EXISTS Hospital.AddPatientStay;
+DROP PROCEDURE IF EXISTS Hospital.AddPatientStayDoctor;
+DROP PROCEDURE IF EXISTS Hospital.AddPatientStayCondition;
+DROP PROCEDURE IF EXISTS Hospital.AddPatientStayTreatment;
 GO
 
 --ADD PATIENT PROCEDURE
@@ -235,6 +238,97 @@ INSERT([Name], ApplicationFrequency, ApplicationType, IsRemoved)
 VALUES(S.Name, S.ApplicationFrequency,S.ApplicationType, 0);
 GO
 
+--ADD PATIENT STAY DOCTOR PROCEDURE
+CREATE PROCEDURE Hospital.AddPatientStayDoctor
+    @PatientID INT,
+    @DoctorID INT,
+    @AdmittanceDate DATETIME,
+    @DischargeDate DATETIME
+AS
+WITH GetPatientStayIdCTE(PatientStayID, DoctorID)
+AS
+(
+    SELECT PS.PatientStayID, @DoctorID
+    FROM Hospital.PatientStay PS 
+    WHERE PS.PatientID = @PatientID
+        AND PS.AdmittanceDate = @AdmittanceDate
+        AND PS.DischargeDate = @DischargeDate
+)
+--now update patient stay doctor
+MERGE Hospital.PatientStayDoctor T 
+USING GetPatientStayIdCTE S ON S.PatientStayID = T.PatientStayID
+                            AND S.DoctorID = T.DoctorID
+WHEN MATCHED THEN
+UPDATE 
+SET IsRemoved = 0,
+    UpdatedOn = SYSDATETIME()
+WHEN NOT MATCHED THEN
+INSERT(PatientStayID, DoctorID, IsRemoved)
+VALUES(S.PatientStayID, S.DoctorID, 0);
+GO
+
+
+--ADD PATIENT STAY TREATMENT PROCEDURE
+CREATE PROCEDURE Hospital.AddPatientStayTreatment
+    @PatientID INT,
+    @TreatmentID INT,
+    @AdmittanceDate DATETIME,
+    @DischargeDate DATETIME
+AS
+WITH GetPatientStayIdCTE(PatientStayID, TreatmentID)
+AS
+(
+    SELECT PS.PatientStayID, @TreatmentID
+    FROM Hospital.PatientStay PS 
+    WHERE PS.PatientID = @PatientID
+        AND PS.AdmittanceDate = @AdmittanceDate
+        AND PS.DischargeDate = @DischargeDate
+)
+
+--now update patient stay treatment
+MERGE Hospital.PatientStayTreatment T 
+USING GetPatientStayIdCTE S ON S.PatientStayID = T.PatientStayID
+                            AND S.TreatmentID = T.TreatmentID
+WHEN MATCHED THEN
+UPDATE 
+SET IsRemoved = 0,
+    UpdatedOn = SYSDATETIME()
+WHEN NOT MATCHED THEN
+INSERT(PatientStayID, TreatmentID, IsRemoved)
+VALUES(S.PatientStayID, S.TreatmentID, 0);
+GO
+
+
+--ADD PATIENT STAY CONDITION PROCEDURE
+CREATE PROCEDURE Hospital.AddPatientStayCondition
+    @PatientID INT,
+    @ConditionID INT,
+    @AdmittanceDate DATETIME,
+    @DischargeDate DATETIME
+AS
+WITH GetPatientStayIdCTE(PatientStayID, ConditionID)
+AS
+(
+    SELECT PS.PatientStayID, @ConditionID
+    FROM Hospital.PatientStay PS 
+    WHERE PS.PatientID = @PatientID
+        AND PS.AdmittanceDate = @AdmittanceDate
+        AND PS.DischargeDate = @DischargeDate
+)
+--now update patient stay condition
+MERGE Hospital.PatientStayCondition T 
+USING GetPatientStayIdCTE S ON S.PatientStayID = T.PatientStayID
+                            AND S.ConditionID = T.ConditionID
+WHEN MATCHED THEN
+UPDATE 
+SET IsRemoved = 0,
+    UpdatedOn = SYSDATETIME()
+WHEN NOT MATCHED THEN
+INSERT(PatientStayID, ConditionID, IsRemoved)
+VALUES(S.PatientStayID, S.ConditionID, 0);
+
+GO
+
 --ADD PATIENT STAY PROCEDURE
 
 CREATE PROCEDURE Hospital.AddPatientStay
@@ -274,63 +368,11 @@ WHEN NOT MATCHED THEN
 INSERT (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, IsRemoved)
 VALUES(S.PatientID, S.AdmittanceDate, S.DischargeDate, S.Unit, S.RoomNumber, 0);
 
---now update patient stay condition
---put all data into a CTE
-    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
-                            DoctorID, TreatentID)
-    AS
-    (
-        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
-    )--end CTE
-
-MERGE Hospital.PatientStayCondition T 
-USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
-                            AND S.ConditionID = T.ConditionID
-WHEN MATCHED THEN
-UPDATE 
-SET IsRemoved = 0,
-    UpdatedOn = SYSDATETIME()
-WHEN NOT MATCHED THEN
-INSERT(PatientStayID, ConditionID, IsRemoved)
-VALUES(S.PatientStayID, S.ConditionID, 0);
-
---now update patient stay treatment
-
---put all data into a CTE
-    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
-                            DoctorID, TreatentID)
-    AS
-    (
-        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
-    )--end CTE
-MERGE Hospital.PatientStayTreatment T 
-USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
-                            AND S.TreatmentID = T.TreatmentID
-WHEN MATCHED THEN
-UPDATE 
-SET IsRemoved = 0,
-    UpdatedOn = SYSDATETIME()
-WHEN NOT MATCHED THEN
-INSERT(PatientStayID, TreatmentID, IsRemoved)
-VALUES(S.PatientStayID, S.TreatmentID, 0);
-
 --now update patient stay doctor
+EXEC AddPatientStayDoctor @PatientID, @DoctorID, @AdmittanceDate, @DischargeDate;
+--now update patient stay treatment
+EXEC AddPatientStayTreatment @PatientID, @TreatmentID, @AdmittanceDate, @DischargeDate;
+--now update patient stay condition
+EXEC AddPatientStayCondition @PatientID, @ConditionID, @AdmittanceDate, @DischargeDate;
 
---put all data into a CTE
-    WITH PatientStayDataCTE (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, 
-                            DoctorID, TreatentID)
-    AS
-    (
-        SELECT @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @DoctorID, @TreatmentID
-    )--end CTE
-MERGE Hospital.PatientStayDoctor T 
-USING PatientStayDataCTE S ON S.PatientStayID = T.PatientStayID
-                            AND S.DoctorID = T.DoctorID
-WHEN MATCHED THEN
-UPDATE 
-SET IsRemoved = 0,
-    UpdatedOn = SYSDATETIME()
-WHEN NOT MATCHED THEN
-INSERT(PatientStayID, DoctorID, IsRemoved)
-VALUES(S.PatientStayID, S.DoctorID, 0);
 GO
