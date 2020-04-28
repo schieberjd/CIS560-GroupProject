@@ -7,7 +7,7 @@ AS
 SELECT CI.PhoneNumber, CI.Email, CI.AddressLine, P.Sex
 FROM Hospital.ContactInfo CI
     INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
     AND CI.IsRemoved = 0 AND P.IsRemoved = 0;
 GO
 
@@ -40,7 +40,7 @@ SELECT ECI.FirstName, ECI.LastName, ECI.PhoneNumber, ECI.Email, ECI.AddressLine
 FROM Hospital.ContactInfo CI
     INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
     INNER JOIN Hospital.ContactInfo ECI ON ECI.ContactInfoID = P.EmergencyContactInfoID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
     AND CI.IsRemoved = 0 AND P.IsRemoved = 0 AND ECI.IsRemoved = 0;
 GO
 
@@ -57,7 +57,7 @@ SELECT PS.AdmittanceDate, PS.DischargeDate, PS.Unit, PS.RoomNumber
 FROM Hospital.ContactInfo CI
     INNER JOIN Hospital.Patient P ON P.ContactInfoID = CI.ContactInfoID
     INNER JOIN Hospital.PatientStay PS ON PS.PatientID = P.PatientID
-WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = @BirthDate
+WHERE CI.FirstName = @FirstName AND CI.LastName = @LastName AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
     AND CI.IsRemoved = 0 AND P.IsRemoved = 0 AND PS.IsRemoved = 0
 ORDER BY PS.AdmittanceDate DESC;
 GO
@@ -66,7 +66,7 @@ GO
 
 
 CREATE OR ALTER PROCEDURE Hospital.GetHospitalConditionHistory
-   @CommonName NVARCHAR(64)
+   @ConditionName NVARCHAR(64)
 AS
 
 WITH Doctors(DoctorID, FirstName, LastName, Degree) AS
@@ -86,7 +86,7 @@ FROM Hospital.Condition C
     INNER JOIN Hospital.PatientStay PS ON PS.PatientStayID = PSC.PatientStayID
     INNER JOIN Hospital.PatientStayDoctor PSD ON PSD.PatientStayID = PS.PatientStayID
     INNER JOIN Doctors D ON D.DoctorID = PSD.DoctorID
-WHERE C.CommonName = @CommonName AND C.IsRemoved = 0 AND PSC.IsRemoved = 0 AND PS.IsRemoved = 0 AND PSD.IsRemoved = 0
+WHERE C.CommonName = @ConditionName AND C.IsRemoved = 0 AND PSC.IsRemoved = 0 AND PS.IsRemoved = 0 AND PSD.IsRemoved = 0
 GROUP BY PS.PatientStayID, PS.AdmittanceDate, PS.DischargeDate, PS.PatientID, D.FirstName, D.LastName, D.Degree
 ORDER BY PS.AdmittanceDate DESC;
 GO

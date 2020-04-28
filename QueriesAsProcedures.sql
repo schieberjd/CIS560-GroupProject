@@ -61,7 +61,7 @@ GO
 CREATE PROCEDURE Hospital.GetConditionByPatientName
         @FirstName NVARCHAR(64),
         @LastName NVARCHAR(64),
-        @Birthday DATETIME
+        @BirthDate DATETIME
 AS
 
 SELECT C.FirstName, C.LastName, P.PatientID, Con.CommonName AS ConditionName
@@ -73,7 +73,7 @@ INNER JOIN Hospital.Condition Con ON Con.ConditionID = PSC.ConditionID
 WHERE P.IsRemoved IS NOT NULL 
         AND C.FirstName = @FirstName
         AND C.LastName = @LastName
-        AND P.BirthDate = @Birthday
+        AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
 ORDER BY Con.CommonName ASC;
 GO
 
@@ -86,7 +86,7 @@ GO
 CREATE PROCEDURE Hospital.GetTreatmentByPatientName
         @FirstName NVARCHAR(64),
         @LastName NVARCHAR(64),
-        @Birthday DATETIME
+        @BirthDate DATETIME
 AS
 
 SELECT C.FirstName, C.LastName, P.PatientID, T.Name AS TreatmentName
@@ -98,7 +98,7 @@ INNER JOIN Hospital.Treatment T ON T.TreatmentID = PST.TreatmentID
 WHERE P.IsRemoved IS NOT NULL 
         AND C.FirstName = @FirstName
         AND C.LastName = @LastName
-        AND P.BirthDate = @Birthday
+        AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
 ORDER BY PS.AdmittanceDate;
 GO
 
@@ -139,7 +139,7 @@ GO
 CREATE PROCEDURE Hospital.GetDoctorByPatient
         @FirstName NVARCHAR(64),
         @LastName NVARCHAR(64),
-        @Birthday DATETIME
+        @BirthDate DATETIME
 AS
 
 SELECT CIp.FirstName AS PatientFirstName,CIp.LastName AS PatientLastName,
@@ -153,7 +153,7 @@ INNER JOIN Hospital.ContactInfo CI ON D.ContactInfoID = CI.ContactInfoID
 WHERE P.IsRemoved IS NOT NULL
         AND CIp.FirstName = @FirstName
         AND CIp.LastName = @LastName
-        AND P.BirthDate = @Birthday
+        AND CONVERT(VARCHAR, P.BirthDate, 101) = CONVERT(VARCHAR, @BirthDate, 101)
 ORDER BY CI.FirstName ASC, CI.LastName ASC;
 GO
 
