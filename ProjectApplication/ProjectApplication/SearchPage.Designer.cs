@@ -29,19 +29,20 @@
         private void InitializeComponent()
         {
             this.uxPatientSearch = new System.Windows.Forms.GroupBox();
-            this.uxPatientFirstNameLabel = new System.Windows.Forms.Label();
-            this.uxPatientLastNameLabel = new System.Windows.Forms.Label();
-            this.uxPatientBirthDate = new System.Windows.Forms.DateTimePicker();
-            this.uxPatientFirstName = new System.Windows.Forms.TextBox();
-            this.uxPatientLastName = new System.Windows.Forms.TextBox();
-            this.uxPatientBirthDateLabel = new System.Windows.Forms.Label();
-            this.uxGetPatientInfo = new System.Windows.Forms.Button();
-            this.uxGetPatientEmergencyContactInfo = new System.Windows.Forms.Button();
-            this.uxGetPatientStays = new System.Windows.Forms.Button();
-            this.uxGetPatientConditions = new System.Windows.Forms.Button();
             this.uxGetPatientTreatments = new System.Windows.Forms.Button();
+            this.uxGetPatientEmergencyContactInfo = new System.Windows.Forms.Button();
             this.uxGetPatientDoctors = new System.Windows.Forms.Button();
+            this.uxGetPatientInfo = new System.Windows.Forms.Button();
+            this.uxGetPatientConditions = new System.Windows.Forms.Button();
+            this.uxGetPatientStays = new System.Windows.Forms.Button();
+            this.uxPatientBirthDateLabel = new System.Windows.Forms.Label();
+            this.uxPatientLastName = new System.Windows.Forms.TextBox();
+            this.uxPatientFirstName = new System.Windows.Forms.TextBox();
+            this.uxPatientBirthDate = new System.Windows.Forms.DateTimePicker();
+            this.uxPatientLastNameLabel = new System.Windows.Forms.Label();
+            this.uxPatientFirstNameLabel = new System.Windows.Forms.Label();
             this.uxDoctorSearch = new System.Windows.Forms.GroupBox();
+            this.uxDoctorUnit = new System.Windows.Forms.TextBox();
             this.uxGetDoctorConditionHistory = new System.Windows.Forms.Button();
             this.uxGetDoctorInfo = new System.Windows.Forms.Button();
             this.uxGetDoctorPatients = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.uxDoctorFirstName = new System.Windows.Forms.TextBox();
             this.uxDoctorLastNameLabel = new System.Windows.Forms.Label();
             this.uxDoctorFirstNameLabel = new System.Windows.Forms.Label();
-            this.uxDoctorUnit = new System.Windows.Forms.TextBox();
             this.uxConditionSearch = new System.Windows.Forms.GroupBox();
             this.uxGetConditionHistory = new System.Windows.Forms.Button();
             this.uxGetConditionPatients = new System.Windows.Forms.Button();
@@ -85,66 +85,15 @@
             this.uxPatientSearch.TabStop = false;
             this.uxPatientSearch.Text = "Patient Search";
             // 
-            // uxPatientFirstNameLabel
+            // uxGetPatientTreatments
             // 
-            this.uxPatientFirstNameLabel.AutoSize = true;
-            this.uxPatientFirstNameLabel.Location = new System.Drawing.Point(28, 40);
-            this.uxPatientFirstNameLabel.Name = "uxPatientFirstNameLabel";
-            this.uxPatientFirstNameLabel.Size = new System.Drawing.Size(90, 20);
-            this.uxPatientFirstNameLabel.TabIndex = 0;
-            this.uxPatientFirstNameLabel.Text = "First Name:";
-            // 
-            // uxPatientLastNameLabel
-            // 
-            this.uxPatientLastNameLabel.AutoSize = true;
-            this.uxPatientLastNameLabel.Location = new System.Drawing.Point(251, 40);
-            this.uxPatientLastNameLabel.Name = "uxPatientLastNameLabel";
-            this.uxPatientLastNameLabel.Size = new System.Drawing.Size(90, 20);
-            this.uxPatientLastNameLabel.TabIndex = 1;
-            this.uxPatientLastNameLabel.Text = "Last Name:";
-            // 
-            // uxPatientBirthDate
-            // 
-            this.uxPatientBirthDate.Checked = false;
-            this.uxPatientBirthDate.CustomFormat = "MM/dd/yyyy";
-            this.uxPatientBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.uxPatientBirthDate.Location = new System.Drawing.Point(479, 70);
-            this.uxPatientBirthDate.Name = "uxPatientBirthDate";
-            this.uxPatientBirthDate.Size = new System.Drawing.Size(195, 26);
-            this.uxPatientBirthDate.TabIndex = 2;
-            // 
-            // uxPatientFirstName
-            // 
-            this.uxPatientFirstName.Location = new System.Drawing.Point(32, 72);
-            this.uxPatientFirstName.Name = "uxPatientFirstName";
-            this.uxPatientFirstName.Size = new System.Drawing.Size(195, 26);
-            this.uxPatientFirstName.TabIndex = 3;
-            // 
-            // uxPatientLastName
-            // 
-            this.uxPatientLastName.Location = new System.Drawing.Point(255, 72);
-            this.uxPatientLastName.Name = "uxPatientLastName";
-            this.uxPatientLastName.Size = new System.Drawing.Size(195, 26);
-            this.uxPatientLastName.TabIndex = 4;
-            // 
-            // uxPatientBirthDateLabel
-            // 
-            this.uxPatientBirthDateLabel.AutoSize = true;
-            this.uxPatientBirthDateLabel.Location = new System.Drawing.Point(475, 40);
-            this.uxPatientBirthDateLabel.Name = "uxPatientBirthDateLabel";
-            this.uxPatientBirthDateLabel.Size = new System.Drawing.Size(85, 20);
-            this.uxPatientBirthDateLabel.TabIndex = 5;
-            this.uxPatientBirthDateLabel.Text = "Birth Date:";
-            // 
-            // uxGetPatientInfo
-            // 
-            this.uxGetPatientInfo.Location = new System.Drawing.Point(779, 25);
-            this.uxGetPatientInfo.Name = "uxGetPatientInfo";
-            this.uxGetPatientInfo.Size = new System.Drawing.Size(80, 35);
-            this.uxGetPatientInfo.TabIndex = 6;
-            this.uxGetPatientInfo.Text = "Info";
-            this.uxGetPatientInfo.UseVisualStyleBackColor = true;
-            this.uxGetPatientInfo.Click += new System.EventHandler(this.uxGetPatientInfo_Click);
+            this.uxGetPatientTreatments.Location = new System.Drawing.Point(1034, 72);
+            this.uxGetPatientTreatments.Name = "uxGetPatientTreatments";
+            this.uxGetPatientTreatments.Size = new System.Drawing.Size(129, 35);
+            this.uxGetPatientTreatments.TabIndex = 10;
+            this.uxGetPatientTreatments.Text = "Treatments";
+            this.uxGetPatientTreatments.UseVisualStyleBackColor = true;
+            this.uxGetPatientTreatments.Click += new System.EventHandler(this.uxGetPatientTreatments_Click);
             // 
             // uxGetPatientEmergencyContactInfo
             // 
@@ -156,15 +105,25 @@
             this.uxGetPatientEmergencyContactInfo.UseVisualStyleBackColor = true;
             this.uxGetPatientEmergencyContactInfo.Click += new System.EventHandler(this.uxGetPatientEmergencyContactInfo_Click);
             // 
-            // uxGetPatientStays
+            // uxGetPatientDoctors
             // 
-            this.uxGetPatientStays.Location = new System.Drawing.Point(865, 25);
-            this.uxGetPatientStays.Name = "uxGetPatientStays";
-            this.uxGetPatientStays.Size = new System.Drawing.Size(80, 35);
-            this.uxGetPatientStays.TabIndex = 8;
-            this.uxGetPatientStays.Text = "Stays";
-            this.uxGetPatientStays.UseVisualStyleBackColor = true;
-            this.uxGetPatientStays.Click += new System.EventHandler(this.uxGetPatientStays_Click);
+            this.uxGetPatientDoctors.Location = new System.Drawing.Point(951, 25);
+            this.uxGetPatientDoctors.Name = "uxGetPatientDoctors";
+            this.uxGetPatientDoctors.Size = new System.Drawing.Size(93, 35);
+            this.uxGetPatientDoctors.TabIndex = 11;
+            this.uxGetPatientDoctors.Text = "Doctors";
+            this.uxGetPatientDoctors.UseVisualStyleBackColor = true;
+            this.uxGetPatientDoctors.Click += new System.EventHandler(this.uxGetPatientDoctors_Click);
+            // 
+            // uxGetPatientInfo
+            // 
+            this.uxGetPatientInfo.Location = new System.Drawing.Point(779, 25);
+            this.uxGetPatientInfo.Name = "uxGetPatientInfo";
+            this.uxGetPatientInfo.Size = new System.Drawing.Size(80, 35);
+            this.uxGetPatientInfo.TabIndex = 6;
+            this.uxGetPatientInfo.Text = "Info";
+            this.uxGetPatientInfo.UseVisualStyleBackColor = true;
+            this.uxGetPatientInfo.Click += new System.EventHandler(this.uxGetPatientInfo_Click);
             // 
             // uxGetPatientConditions
             // 
@@ -176,25 +135,66 @@
             this.uxGetPatientConditions.UseVisualStyleBackColor = true;
             this.uxGetPatientConditions.Click += new System.EventHandler(this.uxGetPatientConditions_Click);
             // 
-            // uxGetPatientTreatments
+            // uxGetPatientStays
             // 
-            this.uxGetPatientTreatments.Location = new System.Drawing.Point(1034, 72);
-            this.uxGetPatientTreatments.Name = "uxGetPatientTreatments";
-            this.uxGetPatientTreatments.Size = new System.Drawing.Size(129, 35);
-            this.uxGetPatientTreatments.TabIndex = 10;
-            this.uxGetPatientTreatments.Text = "Treatments";
-            this.uxGetPatientTreatments.UseVisualStyleBackColor = true;
-            this.uxGetPatientTreatments.Click += new System.EventHandler(this.uxGetPatientTreatments_Click);
+            this.uxGetPatientStays.Location = new System.Drawing.Point(865, 25);
+            this.uxGetPatientStays.Name = "uxGetPatientStays";
+            this.uxGetPatientStays.Size = new System.Drawing.Size(80, 35);
+            this.uxGetPatientStays.TabIndex = 8;
+            this.uxGetPatientStays.Text = "Stays";
+            this.uxGetPatientStays.UseVisualStyleBackColor = true;
+            this.uxGetPatientStays.Click += new System.EventHandler(this.uxGetPatientStays_Click);
             // 
-            // uxGetPatientDoctors
+            // uxPatientBirthDateLabel
             // 
-            this.uxGetPatientDoctors.Location = new System.Drawing.Point(951, 25);
-            this.uxGetPatientDoctors.Name = "uxGetPatientDoctors";
-            this.uxGetPatientDoctors.Size = new System.Drawing.Size(93, 35);
-            this.uxGetPatientDoctors.TabIndex = 11;
-            this.uxGetPatientDoctors.Text = "Doctors";
-            this.uxGetPatientDoctors.UseVisualStyleBackColor = true;
-            this.uxGetPatientDoctors.Click += new System.EventHandler(this.uxGetPatientDoctors_Click);
+            this.uxPatientBirthDateLabel.AutoSize = true;
+            this.uxPatientBirthDateLabel.Location = new System.Drawing.Point(475, 40);
+            this.uxPatientBirthDateLabel.Name = "uxPatientBirthDateLabel";
+            this.uxPatientBirthDateLabel.Size = new System.Drawing.Size(85, 20);
+            this.uxPatientBirthDateLabel.TabIndex = 5;
+            this.uxPatientBirthDateLabel.Text = "Birth Date:";
+            // 
+            // uxPatientLastName
+            // 
+            this.uxPatientLastName.Location = new System.Drawing.Point(255, 72);
+            this.uxPatientLastName.Name = "uxPatientLastName";
+            this.uxPatientLastName.Size = new System.Drawing.Size(195, 26);
+            this.uxPatientLastName.TabIndex = 4;
+            // 
+            // uxPatientFirstName
+            // 
+            this.uxPatientFirstName.Location = new System.Drawing.Point(32, 72);
+            this.uxPatientFirstName.Name = "uxPatientFirstName";
+            this.uxPatientFirstName.Size = new System.Drawing.Size(195, 26);
+            this.uxPatientFirstName.TabIndex = 3;
+            // 
+            // uxPatientBirthDate
+            // 
+            this.uxPatientBirthDate.Checked = false;
+            this.uxPatientBirthDate.CustomFormat = "MM/dd/yyyy";
+            this.uxPatientBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.uxPatientBirthDate.Location = new System.Drawing.Point(479, 70);
+            this.uxPatientBirthDate.Name = "uxPatientBirthDate";
+            this.uxPatientBirthDate.Size = new System.Drawing.Size(195, 26);
+            this.uxPatientBirthDate.TabIndex = 2;
+            // 
+            // uxPatientLastNameLabel
+            // 
+            this.uxPatientLastNameLabel.AutoSize = true;
+            this.uxPatientLastNameLabel.Location = new System.Drawing.Point(251, 40);
+            this.uxPatientLastNameLabel.Name = "uxPatientLastNameLabel";
+            this.uxPatientLastNameLabel.Size = new System.Drawing.Size(90, 20);
+            this.uxPatientLastNameLabel.TabIndex = 1;
+            this.uxPatientLastNameLabel.Text = "Last Name:";
+            // 
+            // uxPatientFirstNameLabel
+            // 
+            this.uxPatientFirstNameLabel.AutoSize = true;
+            this.uxPatientFirstNameLabel.Location = new System.Drawing.Point(28, 40);
+            this.uxPatientFirstNameLabel.Name = "uxPatientFirstNameLabel";
+            this.uxPatientFirstNameLabel.Size = new System.Drawing.Size(90, 20);
+            this.uxPatientFirstNameLabel.TabIndex = 0;
+            this.uxPatientFirstNameLabel.Text = "First Name:";
             // 
             // uxDoctorSearch
             // 
@@ -213,6 +213,13 @@
             this.uxDoctorSearch.TabIndex = 2;
             this.uxDoctorSearch.TabStop = false;
             this.uxDoctorSearch.Text = "Doctor Search";
+            // 
+            // uxDoctorUnit
+            // 
+            this.uxDoctorUnit.Location = new System.Drawing.Point(479, 72);
+            this.uxDoctorUnit.Name = "uxDoctorUnit";
+            this.uxDoctorUnit.Size = new System.Drawing.Size(195, 26);
+            this.uxDoctorUnit.TabIndex = 12;
             // 
             // uxGetDoctorConditionHistory
             // 
@@ -285,13 +292,6 @@
             this.uxDoctorFirstNameLabel.TabIndex = 0;
             this.uxDoctorFirstNameLabel.Text = "First Name:";
             // 
-            // uxDoctorUnit
-            // 
-            this.uxDoctorUnit.Location = new System.Drawing.Point(479, 72);
-            this.uxDoctorUnit.Name = "uxDoctorUnit";
-            this.uxDoctorUnit.Size = new System.Drawing.Size(195, 26);
-            this.uxDoctorUnit.TabIndex = 12;
-            // 
             // uxConditionSearch
             // 
             this.uxConditionSearch.Controls.Add(this.uxGetConditionHistory);
@@ -354,9 +354,11 @@
             // 
             // uxResultsGrid
             // 
+            this.uxResultsGrid.AllowUserToAddRows = false;
             this.uxResultsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.uxResultsGrid.Location = new System.Drawing.Point(13, 400);
             this.uxResultsGrid.Name = "uxResultsGrid";
+            this.uxResultsGrid.ReadOnly = true;
             this.uxResultsGrid.RowHeadersWidth = 62;
             this.uxResultsGrid.RowTemplate.Height = 28;
             this.uxResultsGrid.Size = new System.Drawing.Size(1168, 354);
