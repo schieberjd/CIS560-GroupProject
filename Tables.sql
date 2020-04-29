@@ -1,18 +1,6 @@
 CREATE SCHEMA Hospital;
 GO
 
--- CAUTION: Drops tables created by the wizard
-DROP TABLE IF EXISTS Hospital.PatientStayTreatement_Data_FULL;
-DROP TABLE IF EXISTS Hospital.PatientStayCondition_Data_FULL;
-DROP TABLE IF EXISTS Hospital.PatientStayDoctor_Data_FULL;
-DROP TABLE IF EXISTS Hospital.PatientStay_Data_FULL;
-DROP TABLE IF EXISTS Hospital.Treatment_Data_FULL;
-DROP TABLE IF EXISTS Hospital.Condition_Data_FULL;
-DROP TABLE IF EXISTS Hospital.Doctor_Data_Full;
-DROP TABLE IF EXISTS Hospital.Patients_Data_FULL;
-DROP TABLE IF EXISTS Hospital.Contacts_Data_Full;
-GO
-
 DROP TABLE IF EXISTS Hospital.PatientStayTreatment;
 DROP TABLE IF EXISTS Hospital.PatientStayCondtion;
 DROP TABLE IF EXISTS Hospital.PatientStayDoctor;

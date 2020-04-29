@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddPatientForm.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,14 +15,24 @@ using System.Data.SqlClient;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains the fields to add a patient the the database
+    /// </summary>
     public partial class AddPatientForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddPatientForm()
         {
             InitializeComponent();
         }
 
- 
+        /// <summary>
+        /// Adds the patient to the database based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddPatientToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI

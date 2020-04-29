@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddDoctorForm.cs
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,8 +15,14 @@ using System.Windows.Forms;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains field to add a doctor to the database
+    /// </summary>
     public partial class AddDoctorForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddDoctorForm()
         {
             InitializeComponent();
@@ -23,6 +33,11 @@ namespace ProjectApplication
 
         }
 
+        /// <summary>
+        /// Adds the doctor to the database based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddDoctorToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI

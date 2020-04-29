@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddPatientStayForm.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,13 +15,24 @@ using System.Windows.Forms;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains field to add a patient stay to the database
+    /// </summary>
     public partial class AddPatientStayForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddPatientStayForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Adds the patient stay to the database based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddPatientStayToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI

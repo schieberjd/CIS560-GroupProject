@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddConditionForm.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,13 +15,24 @@ using System.Windows.Forms;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains the fields to add a condition to the database
+    /// </summary>
     public partial class AddConditionForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddConditionForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Adds the condition to the database based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddConditionToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI

@@ -1,3 +1,18 @@
+/* (Table)_Data_FULL tables were created using the SQL Server Import Extension.
+A .csv file was created by generatedata.com that was imported into our database
+via the Import Flat File Wizard. We then used these tables to populate our own. */
+
+DROP TABLE IF EXISTS Hospital.PatientStayTreatement_Data_FULL;
+DROP TABLE IF EXISTS Hospital.PatientStayCondition_Data_FULL;
+DROP TABLE IF EXISTS Hospital.PatientStayDoctor_Data_FULL;
+DROP TABLE IF EXISTS Hospital.PatientStay_Data_FULL;
+DROP TABLE IF EXISTS Hospital.Treatment_Data_FULL;
+DROP TABLE IF EXISTS Hospital.Condition_Data_FULL;
+DROP TABLE IF EXISTS Hospital.Doctor_Data_Full;
+DROP TABLE IF EXISTS Hospital.Patients_Data_FULL;
+DROP TABLE IF EXISTS Hospital.Contacts_Data_Full;
+GO
+
 INSERT Hospital.ContactInfo(FirstName, LastName, PhoneNumber, Email, AddressLine, City, [State], ZipCode, Country, IsRemoved)
 SELECT S.FirstName, S.LastName, S.PhoneNumber, S.Email, S.AddressLine1, S.City, S.[State], S.ZipCode, S.Country, 0
 FROM Hospital.Contacts_Data_FULL S;

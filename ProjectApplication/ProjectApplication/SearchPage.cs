@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Justin Schieber
+ * SearchPage.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,17 +15,32 @@ using System.Data.SqlClient;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains the ability to read from the database
+    /// </summary>
     public partial class SearchPage : Form
     {
+        /// <summary>
+        /// The string to connect to the database
+        /// </summary>
         private string connectionString;
 
+        /// <summary>
+        /// Contructs the search page
+        /// </summary>
         public SearchPage()
         {
             InitializeComponent();
             this.ActiveControl = uxPatientFirstName;
-            connectionString = @"Data Source=(localDB)\MSSQLLocalDB;Integrated Security=True";
+            connectionString = @"Server=localhost\MSSQLSERVER01;Database=CIS560_FINAL_PROJECT;User ID=Ethan;
+                                        Integrated Security=SSPI";
         }
 
+        /// <summary>
+        /// Displays patient stays in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientStays_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -37,7 +56,7 @@ namespace ProjectApplication
                     command.Parameters.AddWithValue("@FirstName", firstName);
                     command.Parameters.AddWithValue("@LastName", lastName);
                     command.Parameters.AddWithValue("@BirthDate", birthDate);
-
+                  
                     connection.Open();
                     using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
                     {
@@ -50,6 +69,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays patient info in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientInfo_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -78,6 +102,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays patient doctors in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientDoctors_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -106,6 +135,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays patient conditions in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientConditions_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -134,6 +168,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays patient emergency contact info in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientEmergencyContactInfo_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -162,6 +201,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays patient treatments in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetPatientTreatments_Click(object sender, EventArgs e)
         {
             string firstName = uxPatientFirstName.Text;
@@ -190,6 +234,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays doctor info in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetDoctorInfo_Click(object sender, EventArgs e)
         {
             string firstName = uxDoctorFirstName.Text;
@@ -218,6 +267,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays doctor patients in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetDoctorPatients_Click(object sender, EventArgs e)
         {
             string firstName = uxDoctorFirstName.Text;
@@ -246,6 +300,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays doctor condition history in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetDoctorConditionHistory_Click(object sender, EventArgs e)
         {
             string firstName = uxDoctorFirstName.Text;
@@ -274,6 +333,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays condition doctors in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetConditionDoctors_Click(object sender, EventArgs e)
         {
             string commonName = uxConditionCommonName.Text;
@@ -298,6 +362,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays condition history in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetConditionHistory_Click(object sender, EventArgs e)
         {
             string commonName = uxConditionCommonName.Text;
@@ -322,6 +391,11 @@ namespace ProjectApplication
             }
         }
 
+        /// <summary>
+        /// Displays condition patients in the results grid based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxGetConditionPatients_Click(object sender, EventArgs e)
         {
             string commonName = uxConditionCommonName.Text;

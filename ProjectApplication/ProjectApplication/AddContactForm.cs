@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddContactForm.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,13 +15,24 @@ using System.Windows.Forms;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains the fields to add a contact to the database
+    /// </summary>
     public partial class AddContactForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddContactForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Adds the contact to the database based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddContactToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI

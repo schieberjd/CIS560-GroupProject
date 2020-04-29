@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Author: Ethan Zajac
+ * AddTreatmentForm.cs
+ */
+ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,13 +15,24 @@ using System.Windows.Forms;
 
 namespace ProjectApplication
 {
+    /// <summary>
+    /// Contains fields to add a treatment to the database
+    /// </summary>
     public partial class AddTreatementForm : Form
     {
+        /// <summary>
+        /// Constructs the form
+        /// </summary>
         public AddTreatementForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Adds the treatment to the databased based on the given info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddTreatmentToDatabaseButton_Click(object sender, EventArgs e)
         {
             //get the data from the GUI
