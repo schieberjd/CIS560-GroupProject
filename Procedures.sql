@@ -567,7 +567,7 @@ GO
 
 
 -- Add/Update PatientStay
-CREATE PROCEDURE Hospital.AddPatientStay
+CREATE OR ALTER PROCEDURE Hospital.AddPatientStay
         @PatientID INT,
         @AdmittanceDate DATETIME,
         @DischargeDate DATETIME,
@@ -602,7 +602,7 @@ WHEN NOT MATCHED THEN
 INSERT (PatientID, AdmittanceDate, DischargeDate, Unit, RoomNumber, IsRemoved)
 VALUES(S.PatientID, S.AdmittanceDate, S.DischargeDate, S.Unit, S.RoomNumber, 0);
 
-EXEC AddPatientStayDoctor @PatientID, @DoctorID, @AdmittanceDate, @DischargeDate;
-EXEC AddPatientStayTreatment @PatientID, @TreatmentID, @AdmittanceDate, @DischargeDate;
-EXEC AddPatientStayCondition @PatientID, @ConditionID, @AdmittanceDate, @DischargeDate;
+EXEC Hospital.AddPatientStayDoctor @PatientID, @DoctorID, @AdmittanceDate, @DischargeDate;
+EXEC Hospital.AddPatientStayTreatment @PatientID, @TreatmentID, @AdmittanceDate, @DischargeDate;
+EXEC Hospital.AddPatientStayCondition @PatientID, @ConditionID, @AdmittanceDate, @DischargeDate;
 GO
