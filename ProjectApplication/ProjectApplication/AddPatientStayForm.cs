@@ -35,43 +35,67 @@ namespace ProjectApplication
         /// <param name="e"></param>
         private void uxAddPatientStayToDatabaseButton_Click(object sender, EventArgs e)
         {
-            //get the data from the GUI
-            string patientId = uxPatientIDBox.Text;
-            DateTime addmittanceDate = dateTimePicker1.Value;
-            string DoctorId = uxDoctorIDBox.Text;
-            DateTime dischargeDate = dateTimePicker2.Value;
-            string room = uxRoomNumberBox.Text;
-            string unit = uxUnitBox.Text;
-            int condition = Convert.ToInt32( uxConditionBox.Text);
-            int treatment = Convert.ToInt32( uxTreatmentBox.Text);
+            if (uxConditionBox.Text != "" && uxDoctorIDBox.Text != "" && uxPatientIDBox.Text != "" && uxRoomNumberBox.Text != "" && uxTreatmentBox.Text != "" && uxUnitBox.Text != "" )
+            {
+                //get the data from the GUI
+                string patientId = uxPatientIDBox.Text;
+                DateTime addmittanceDate = dateTimePicker1.Value;
+                string DoctorId = uxDoctorIDBox.Text;
+                DateTime dischargeDate = dateTimePicker2.Value;
+                string room = uxRoomNumberBox.Text;
+                string unit = uxUnitBox.Text;
+                int condition = -1;
+                int treatment = -1;
 
-            //set up SQL connection
-            string connectionString = @"Server=localhost\MSSQLSERVER01;Database=CIS560_FINAL_PROJECT;User ID=Ethan;
+                try
+                {
+                    condition = Convert.ToInt32(uxConditionBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                try
+                {
+                    treatment= Convert.ToInt32(uxTreatmentBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+
+                //set up SQL connection
+                string connectionString = @"Server=localhost\MSSQLSERVER01;Database=CIS560_FINAL_PROJECT;User ID=Ethan;
                                         Integrated Security=SSPI";
-            var cnn = new SqlConnection(connectionString);
+                var cnn = new SqlConnection(connectionString);
 
-            var cmd = new SqlCommand("EXEC Hospital.AddPatientStay @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @ConditionID, @DoctorID, @TreatmentID;", cnn);
+                var cmd = new SqlCommand("EXEC Hospital.AddPatientStay @PatientID, @AdmittanceDate, @DischargeDate, @Unit, @RoomNumber, @ConditionID, @DoctorID, @TreatmentID;", cnn);
 
-            cmd.Parameters.AddWithValue("@PatientId", patientId);
-            cmd.Parameters.AddWithValue("@AdmittanceDate", addmittanceDate);
-            cmd.Parameters.AddWithValue("@DischargeDate", dischargeDate);
-            cmd.Parameters.AddWithValue("@Unit", unit);
-            cmd.Parameters.AddWithValue("@RoomNumber", room);
-            cmd.Parameters.AddWithValue("@ConditionID", condition);
-            cmd.Parameters.AddWithValue("@DoctorID", DoctorId);
-            cmd.Parameters.AddWithValue("@TreatmentID", treatment);
-          
+                cmd.Parameters.AddWithValue("@PatientId", patientId);
+                cmd.Parameters.AddWithValue("@AdmittanceDate", addmittanceDate);
+                cmd.Parameters.AddWithValue("@DischargeDate", dischargeDate);
+                cmd.Parameters.AddWithValue("@Unit", unit);
+                cmd.Parameters.AddWithValue("@RoomNumber", room);
+                cmd.Parameters.AddWithValue("@ConditionID", condition);
+                cmd.Parameters.AddWithValue("@DoctorID", DoctorId);
+                cmd.Parameters.AddWithValue("@TreatmentID", treatment);
 
-            try
-            {
-                cnn.Open();
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Data added");
-                cnn.Close();
+
+                try
+                {
+                    cnn.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Data added");
+                    cnn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("All data must be entered!");
             }
         }
 

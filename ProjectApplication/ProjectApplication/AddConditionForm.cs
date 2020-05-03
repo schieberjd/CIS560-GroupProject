@@ -35,31 +35,39 @@ namespace ProjectApplication
         /// <param name="e"></param>
         private void uxAddConditionToDatabaseButton_Click(object sender, EventArgs e)
         {
-            //get the data from the GUI
-            string commonName = uxCommonBox.Text;
-            string tech = uxTechnicalBox.Text;
+            if(uxCommonBox.Text != "" && uxTechnicalBox.Text != "")
+            {
 
-            //set up SQL connection
-            string connectionString = @"Server=localhost\MSSQLSERVER01;Database=CIS560_FINAL_PROJECT;User ID=Ethan;
+                //get the data from the GUI
+                string commonName = uxCommonBox.Text;
+                string tech = uxTechnicalBox.Text;
+
+                //set up SQL connection
+                string connectionString = @"Server=localhost\MSSQLSERVER01;Database=CIS560_FINAL_PROJECT;User ID=Ethan;
                                         Integrated Security=SSPI";
-            var cnn = new SqlConnection(connectionString);
+                var cnn = new SqlConnection(connectionString);
 
-            var cmd = new SqlCommand("EXEC Hospital.AddCondition @CommonName, @TechnicalName;", cnn);
+                var cmd = new SqlCommand("EXEC Hospital.AddCondition @CommonName, @TechnicalName;", cnn);
 
-            cmd.Parameters.AddWithValue("@CommonName", commonName);
-            cmd.Parameters.AddWithValue("@TechnicalName", tech);
+                cmd.Parameters.AddWithValue("@CommonName", commonName);
+                cmd.Parameters.AddWithValue("@TechnicalName", tech);
 
 
-            try
-            {
-                cnn.Open();
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Data added");
-                cnn.Close();
+                try
+                {
+                    cnn.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Data added");
+                    cnn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("All data fields must be entered!");
             }
         }
     }
